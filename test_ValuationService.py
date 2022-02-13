@@ -25,16 +25,24 @@ def test_calculate_total_price(vs):
     assert total_prices == [4800.0, 2205.0, 2000.0, 7350.0, 11760.0, 21000.0, 7560.0, 8400.0, 10080.0]
 
 
-def test_filter_and_sort_products_matching_id(vs):
+def test_filter_and_sort_products_matching_id_1(vs):
     vs.calculate_total_price()
 
     f_and_s_1 = vs.filter_and_sort_products_matching_id('1')
     f_and_s_1_total_prices = [x['total_price'] for x in f_and_s_1]
     assert f_and_s_1_total_prices == [10080.0, 2205.0, 2000.0]
 
+
+def test_filter_and_sort_products_matching_id_2(vs):
+    vs.calculate_total_price()
+
     f_and_s_2 = vs.filter_and_sort_products_matching_id('2')
     f_and_s_2_total_prices = [x['total_price'] for x in f_and_s_2]
     assert f_and_s_2_total_prices == [21000.0, 7350.0]
+
+
+def test_filter_and_sort_products_matching_id_3(vs):
+    vs.calculate_total_price()
 
     f_and_s_3 = vs.filter_and_sort_products_matching_id('3')
     f_and_s_3_total_prices = [x['total_price'] for x in f_and_s_3]

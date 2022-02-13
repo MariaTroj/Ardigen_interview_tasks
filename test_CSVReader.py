@@ -19,14 +19,14 @@ def test_csv_data_to_dict(file_path, expected_output):
     assert output == expected_output
 
 
-@pytest.mark.parametrize("file_path, exception_statement", [
-    ('test1.csv', 'wrong data format: too many keys to wrap list into dict'),
+@pytest.mark.parametrize("file_path, exception_type", [
+    ('test1.csv', TypeError),
 ])
-def test_csv_data_to_dict(file_path, exception_statement):
-    with pytest.raises(TypeError) as e:
+def test_csv_data_to_dict(file_path, exception_type):
+    with pytest.raises(exception_type) as e:
         data = CSVReader.read_csv(file_path)
         output = CSVReader.csv_data_to_dict(data)
-    assert e.value.args[0] == exception_statement
+    assert e is not None
 
 
 @pytest.mark.parametrize("file_path", [
@@ -39,13 +39,13 @@ def test_write_csv(file_path):
     assert output == data
 
 
-@pytest.mark.parametrize("file_path, exception_statement", [
-    ('test_output.csv', 'wrong data format: list[dict] is expected'),
+@pytest.mark.parametrize("file_path, exception_type", [
+    ('test_output.csv', ValueError),
 ])
-def test_try_to_write(file_path, exception_statement):
+def test_try_to_write(file_path, exception_type):
     data = {'ticket': '20min', 'price': '2.0', 'type': 'discount'}
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(exception_type) as e:
         CSVReader.write_csv(file_path, data)
-    assert e.value.args[0] == exception_statement
+    assert e is not None
 
 
